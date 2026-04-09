@@ -1,0 +1,7 @@
+output/
+__tweet_raw.png
+twitter_login.json
+xhs_login.json
+__pycache__/
+*.pyc
+.DS_Store
