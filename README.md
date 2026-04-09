@@ -31,7 +31,7 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/你的用户名/tweet-to-xhs.git
+git clone https://github.com/SteveZyy-SZU/tweet-to-xhs.git
 cd tweet-to-xhs
 
 # 一键安装依赖
@@ -42,7 +42,12 @@ bash setup.sh
 
 ## 使用方法
 
-确保 Chrome 已关闭，然后运行：
+**第一步：找到你想截图的推文链接**
+
+打开 Twitter/X，找到你想发到小红书的推文，复制浏览器地址栏的链接。
+链接格式类似：`https://x.com/用户名/status/数字`
+
+**第二步：确保 Chrome 已关闭，然后在终端运行：**
 
 ```bash
 python3 run.py https://x.com/用户名/status/推文ID

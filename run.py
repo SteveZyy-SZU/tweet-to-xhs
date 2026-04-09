@@ -84,15 +84,13 @@ async def screenshot_tweet(url: str, output_path: str):
 
     canvas = Image.new("RGB", (WIDTH, HEIGHT), color=(255, 255, 255))
 
-    margin = 40
-    target_w = WIDTH - margin * 2
-    scale = target_w / tw
-    new_w = target_w
+    scale = WIDTH / tw
+    new_w = WIDTH
     new_h = int(th * scale)
     tweet_resized = tweet_img.resize((new_w, new_h), Image.LANCZOS)
 
     y_offset = max(0, (HEIGHT - new_h) // 2)
-    canvas.paste(tweet_resized, (margin, y_offset))
+    canvas.paste(tweet_resized, (0, y_offset))
     canvas.save(output_path)
 
     os.remove("__tweet_raw.png")
