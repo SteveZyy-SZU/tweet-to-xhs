@@ -36,7 +36,8 @@ async def screenshot_tweet(url: str, output_path: str):
         browser = await p.chromium.launch(
             headless=True,  # 后台静默运行，不弹出窗口
             channel="chrome",
-            args=["--disable-blink-features=AutomationControlled"]
+            args=["--disable-blink-features=AutomationControlled"],
+            proxy={"server": "http://127.0.0.1:1082"},
         )
         context = await browser.new_context(
             viewport={"width": 390, "height": 10000},  # 手机宽度，高度足够大确保长推文完整渲染
@@ -58,7 +59,12 @@ async def screenshot_tweet(url: str, output_path: str):
 
         page = await context.new_page()
         await page.goto(url, wait_until="load", timeout=30000)
-        await page.wait_for_timeout(3000)
+        # 等待网络静默（确保头像等图片加载完成），最多额外等 8 秒
+        try:
+            await page.wait_for_load_state("networkidle", timeout=8000)
+        except Exception:
+            pass  # 超时则继续，不阻断流程
+        await page.wait_for_timeout(1000)
 
         # 找推文元素，精准截图
         article = await page.query_selector('article[data-testid="tweet"]')
